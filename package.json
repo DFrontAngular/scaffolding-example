@@ -7,9 +7,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "lint": "ng lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "-----CI-----": "-----",
+    "ci:test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
+    "ci:install": "npm ci",
+    "ci:build": "npm run build -- --configuration production",
+    "ci:package": "npm run package"
   },
   "private": true,
   "dependencies": {
