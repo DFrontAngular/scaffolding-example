@@ -1,3 +1,3 @@
 export interface User {
-  exampleProp: string;
+  frontendProp: string;
 }
