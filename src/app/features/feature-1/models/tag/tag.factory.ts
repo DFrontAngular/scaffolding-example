@@ -1,6 +1,6 @@
 import {Tag} from './tag.interface';
 
-export function createTag(overrides: Partial<Tag> = {}): Tag {
+export function createTag(overrides?: Partial<Tag>): Tag {
   const defaultTag: Tag = {
     id: 0,
     name: 'name',
