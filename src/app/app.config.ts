@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  DOCUMENT,
   provideAppInitializer,
   provideEnvironmentInitializer,
   provideZoneChangeDetection,
@@ -10,10 +11,12 @@ import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/ht
 import {of} from 'rxjs';
 import {routes} from './app.routes';
 import {authInterceptor} from './core/interceptors';
+import {WINDOW_SSR, windowProvider} from './core/providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
+    provideHttpClient(withFetch()),
     provideRouter(routes, withRouterConfig({})),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideAppInitializer(() => {
@@ -24,5 +27,11 @@ export const appConfig: ApplicationConfig = {
       // This is where you can set up environment-specific configurations
       console.log('Environment initialized');
     }),
+    // This is only necessary if you app has SSR
+    {
+      provide: WINDOW_SSR,
+      useFactory: (document: Document) => windowProvider(document),
+      deps: [DOCUMENT],
+    },
   ],
 };
